@@ -4,8 +4,8 @@ from datetime import datetime
 import os
 
 # paquetes del desarrollo
-from navegacion.render import get_rendered_html
-from navegacion.scroll import scroll_page
+from web.navegacion.render import get_rendered_html
+from web.navegacion.scroll import scroll_page
 
 async def main(URL):
     async with async_playwright() as p:
