@@ -1,5 +1,5 @@
 import pytest
-from pathlib import Path
+
 from src.web.utilidades.config import leer_config
 
 
@@ -40,6 +40,7 @@ class TestLeerConfig:
         config_file.write_text(config_content)
 
         import os
+
         original_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)

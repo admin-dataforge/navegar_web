@@ -1,5 +1,7 @@
-import pytest
 from unittest.mock import AsyncMock
+
+import pytest
+
 from src.web.navegacion.render import get_rendered_html
 
 
@@ -24,7 +26,7 @@ async def test_get_rendered_html_returns_expanded_html():
 async def test_get_rendered_html_expands_shadow_dom():
     mock_page = AsyncMock()
 
-    html_with_shadow = "<html><body><custom-element shadowroot><template>Shadow Content</template></custom-element></body></html>"
+    _html_with_shadow = "<html><body><custom-element shadowroot><template>Shadow Content</template></custom-element></body></html>"
     expected_expanded = "<html><body><custom-element>Shadow Content</custom-element></body></html>"
     mock_page.evaluate = AsyncMock(return_value=expected_expanded)
 
@@ -39,7 +41,7 @@ async def test_get_rendered_html_calls_document_outerhtml():
 
     mock_page.evaluate = AsyncMock(return_value="<html>Document</html>")
 
-    result = await get_rendered_html(mock_page)
+    await get_rendered_html(mock_page)
 
     call_args = mock_page.evaluate.call_args[0][0]
     assert "document.documentElement.outerHTML" in call_args

@@ -23,6 +23,9 @@ source .venv/bin/activate  # Linux/Mac
 # Instalar dependencias
 pip install -e .
 
+# Instalar dependencias de desarrollo (linting, type checking)
+pip install -e ".[dev]"
+
 # Instalar navegadores de Playwright
 playwright install chromium
 ```
@@ -119,6 +122,44 @@ pytest
 # Ejecutar pruebas específicas
 pytest tests/test_navegacion_scroll.py
 pytest tests/test_navegacion_render.py
+```
+
+## Herramientas de Calidad
+
+Este proyecto usa las siguientes herramientas para mantener la calidad del código:
+
+- **ruff**: Linting y formateo de código
+- **mypy**: Verificación de tipos estáticos
+- **pre-commit**: Hooks automáticos antes de cada commit
+
+### Instalación de herramientas
+
+```bash
+# Instalar dependencias de desarrollo (incluye ruff, mypy, pre-commit)
+pip install -e ".[dev]"
+
+# Instalar pre-commit hooks
+pre-commit install
+```
+
+### Verificación de calidad
+
+```bash
+# Ejecutar script de verificación completo
+./scripts/quality_check.sh
+
+# O ejecutar cada herramienta por separado
+ruff check .           # Verificar estilo
+ruff format .          # Formatear código
+mypy src/              # Verificar tipos
+```
+
+### Saltar hooks de pre-commit
+
+Si necesitas hacer un commit sin ejecutar los hooks:
+
+```bash
+git commit --no-verify -m "tu mensaje"
 ```
 
 ## Autor

@@ -1,6 +1,7 @@
 import asyncio
 import random
 
+
 async def scroll_page(
     page,
     scroll_delay_min_ms: int = 500,
@@ -29,7 +30,7 @@ async def scroll_page(
             break
 
         previous_count = current_count
-        
+
         if wheel_delta_max > wheel_delta_min:
             wheel_delta = random.randint(wheel_delta_min, wheel_delta_max)
         else:
@@ -40,11 +41,11 @@ async def scroll_page(
         try:
             await page.wait_for_function(
                 f"document.querySelectorAll('.property-card__container').length > {previous_count}",
-                timeout=5000
+                timeout=5000,
             )
-        except:
+        except Exception:
             pass
-        
+
         if i < max_scrolls - 1:
             current_delay_range = scroll_delay_max_ms - scroll_delay_min_ms
             if current_delay_range > 0:
