@@ -1,5 +1,7 @@
+from unittest.mock import AsyncMock, MagicMock, patch
+
 import pytest
-from unittest.mock import AsyncMock, patch, MagicMock
+
 from src.web.navegacion.scroll import scroll_page
 
 
@@ -8,12 +10,14 @@ async def test_scroll_page_stops_when_no_new_content_loads():
     mock_page = AsyncMock()
     mock_cards = [MagicMock(), MagicMock(), MagicMock()]
 
-    mock_page.query_selector_all = AsyncMock(side_effect=[
-        mock_cards,
-        mock_cards,
-        mock_cards,
-        mock_cards,
-    ])
+    mock_page.query_selector_all = AsyncMock(
+        side_effect=[
+            mock_cards,
+            mock_cards,
+            mock_cards,
+            mock_cards,
+        ]
+    )
 
     mock_page.mouse.wheel = AsyncMock()
     mock_page.wait_for_function = AsyncMock()
