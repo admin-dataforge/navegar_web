@@ -2,3 +2,5 @@
 __pycache__
 .venv
 .pytest_cache
+web.egg-info
+2026-04-26-quitar*

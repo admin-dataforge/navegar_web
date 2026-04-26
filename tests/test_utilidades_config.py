@@ -5,13 +5,13 @@ from src.web.utilidades.config import leer_config
 
 class TestLeerConfig:
     def test_successful_yaml_loading(self, tmp_path):
-        config_content = "site: metrocuadrado\nlimit: 50\ntimeout: 30"
+        config_content = "site: propiedades\nlimit: 50\ntimeout: 30"
         config_file = tmp_path / "config.yaml"
         config_file.write_text(config_content)
 
         result = leer_config(str(config_file))
 
-        assert result == {"site": "metrocuadrado", "limit": 50, "timeout": 30}
+        assert result == {"site": "propiedades", "limit": 50, "timeout": 30}
 
     def test_raises_filenotfound_error_for_missing_file(self):
         with pytest.raises(FileNotFoundError):

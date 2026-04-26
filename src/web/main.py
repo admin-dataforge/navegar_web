@@ -25,7 +25,9 @@ async def main(URL):
 
         # 📦 estructura tipo data lake
         fecha = datetime.now().strftime("%Y-%m-%d")
-        path = f"data/raw/metrocuadrado/{fecha}"
+        from urllib.parse import urlparse
+        dominio = urlparse(URL).netloc.replace("www.", "")
+        path = f"data/raw/{dominio}/{fecha}"
         os.makedirs(path, exist_ok=True)
 
         file_path = f"{path}/pagina_1_rendered.html"
