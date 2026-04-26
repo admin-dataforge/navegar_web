@@ -33,16 +33,16 @@ playwright install chromium
 import asyncio
 from web.main import main
 
-asyncio.run(main("https://www.metrocuadrado.com"))
+asyncio.run(main("https://ejemplo.com/propiedades"))
 ```
 
 O desde la línea de comandos:
 
 ```bash
-python -m web.main "https://www.metrocuadrado.com"
+python -m web.main "https://ejemplo.com/propiedades"
 ```
 
-El script guardará el HTML renderizado en `data/raw/metrocuadrado/YYYY-MM-DD/pagina_1_rendered.html`.
+El script guardará el HTML renderizado en `data/raw/<dominio>/YYYY-MM-DD/pagina_1_rendered.html`.
 
 ## Estructura del Proyecto
 
