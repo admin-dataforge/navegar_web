@@ -44,6 +44,47 @@ python -m web.main "https://ejemplo.com/propiedades"
 
 El script guardará el HTML renderizado en `data/raw/<dominio>/YYYY-MM-DD/pagina_1_rendered.html`.
 
+## scroll_page
+
+Función located in `src/web/navegacion/scroll.py`.
+
+### Parámetros
+
+| Parámetro | Tipo | Default | Descripción |
+|-----------|------|---------|-------------|
+| `page` | Playwright Page | - | Objeto de página de Playwright |
+| `scroll_delay_min_ms` | int | 500 | Delay mínimo entre scrolls (ms) |
+| `scroll_delay_max_ms` | int | 2000 | Delay máximo entre scrolls (ms) |
+| `wheel_delta_min` | int | 500 | Delta mínimo de scroll (px) |
+| `wheel_delta_max` | int | 3000 | Delta máximo de scroll (px) |
+| `max_scrolls` | int | 30 | Máximo número de scrolls |
+| `no_change_threshold` | int | 3 | Consecutivos sin cambio antes de parar |
+
+### Uso
+
+```python
+# Uso por defecto (comportamiento humano)
+await scroll_page(page)
+
+# Configuración personalizada (más rápido)
+await scroll_page(
+    page,
+    scroll_delay_min_ms=250,
+    scroll_delay_max_ms=500,
+    wheel_delta_min=1000,
+    wheel_delta_max=1500,
+)
+
+# Modo determinista (para testing)
+await scroll_page(
+    page,
+    scroll_delay_min_ms=100,
+    scroll_delay_max_ms=100,  # Fijo
+    wheel_delta_min=2000,
+    wheel_delta_max=2000,  # Fijo
+)
+```
+
 ## Estructura del Proyecto
 
 ```
