@@ -40,7 +40,7 @@ async def scrape_single_page(url, page, page_number: int, expected_cards: int):
     return True
 
 
-async def main(url, max_pages: Optional[int] = None):
+async def main(url, expected_cards: int, max_pages: Optional[int] = None):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=["--no-sandbox"])
         page = await browser.new_page()
@@ -53,7 +53,7 @@ async def main(url, max_pages: Optional[int] = None):
             print(f"\n📄 Procesando página {page_number}...")
 
             # Scraping de la página actual
-            await scrape_single_page(url, page, page_number)
+            await scrape_single_page(url, page, page_number, expected_cards)
 
             # Validar límite de páginas
             if max_pages and page_number >= max_pages:
