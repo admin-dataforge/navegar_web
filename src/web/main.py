@@ -14,7 +14,7 @@ from web.navegacion.scroll import scroll_page
 # configurar el screping para una pagina
 
 
-async def scrape_single_page(url, page, page_number: int, lista_archivos:list):
+async def scrape_single_page(url, page, page_number: int, lista_archivos:list, identificador:str):
     """Realiza scroll y guarda HTML de una página específica"""
     # Esperar contenido inicial
     await page.wait_for_selector(".property-card__container")
@@ -30,7 +30,7 @@ async def scrape_single_page(url, page, page_number: int, lista_archivos:list):
     from urllib.parse import urlparse
 
     dominio = urlparse(url).netloc.replace("www.", "")
-    path = f"data/raw/{dominio}/{fecha}-{uuid.uuid4()}"
+    path = f"data/raw/{dominio}/{fecha}-{identificador}"
     os.makedirs(path, exist_ok=True)
 
     file_path = f"{path}/pagina_{page_number}_rendered.html"
@@ -42,7 +42,7 @@ async def scrape_single_page(url, page, page_number: int, lista_archivos:list):
     return True
 
 
-async def main(url, lista_archivos:list,max_pages: Optional[int] = None):
+async def main(url, lista_archivos:list, identificador:str, max_pages: Optional[int] = None):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=["--no-sandbox"])
         page = await browser.new_page()
@@ -55,7 +55,7 @@ async def main(url, lista_archivos:list,max_pages: Optional[int] = None):
             print(f"\n📄 Procesando página {page_number}...")
 
             # Scraping de la página actual
-            await scrape_single_page(url, page, page_number, lista_archivos)
+            await scrape_single_page(url, page, page_number, lista_archivos, identificador)
 
             # Validar límite de páginas
             if max_pages and page_number >= max_pages:
