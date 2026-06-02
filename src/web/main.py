@@ -13,13 +13,13 @@ from web.navegacion.scroll import scroll_page
 # configurar el screping para una pagina
 
 
-async def scrape_single_page(url, page, page_number: int):
+async def scrape_single_page(url, page, page_number: int, expected_cards: int):
     """Realiza scroll y guarda HTML de una página específica"""
     # Esperar contenido inicial
     await page.wait_for_selector(".property-card__container")
 
     # Scroll para cargar todo
-    await scroll_page(page)
+    await scroll_page(page, expected_cards)
 
     # Obtener HTML renderizado
     html = await get_rendered_html(page)
